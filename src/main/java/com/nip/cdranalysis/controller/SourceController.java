@@ -1,15 +1,15 @@
 package com.nip.cdranalysis.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
 
 import com.nip.cdranalysis.model.Source;
 import com.nip.cdranalysis.service.impl.SourceServiceImpl;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/sources")
+@RequestMapping("/data")
 public class SourceController {
 
     private SourceServiceImpl sourceServiceImpl;
@@ -19,14 +19,32 @@ public class SourceController {
         this.sourceServiceImpl = sourceServiceImpl;
     }
 
-    @GetMapping
-    public Iterable<Source> findAll() {
-        return sourceServiceImpl.getAllSources();
+    @GetMapping("/all")
+    public List<Source> findAll() {
+        return sourceServiceImpl.getAllDatas();
     }
 
-
-    @GetMapping("/{name}")
-    public Source getSourceByName(@PathVariable String name) {
+    @GetMapping("/getsource/{name}")
+    public List<Source> getSourceByName(@PathVariable String name) {
         return sourceServiceImpl.getSourceByName(name);
+    }
+
+    @GetMapping("/gettarget/{val}")
+    public List<Source> getTargetByName(@PathVariable String val) {
+        return sourceServiceImpl.getTargetByName(val);
+    }
+
+    @PostMapping("/create")
+    @Transactional
+    public String saveEmployee(){
+        //sourceServiceImpl.savaDataMoc();
+        //sourceServiceImpl.savaDataMTC();
+        //sourceServiceImpl.graphCreate();
+        //sourceServiceImpl.degreeCreate();
+        sourceServiceImpl.betweennessCreate();
+
+        //sourceServiceImpl.deleteDetach();
+        //sourceServiceImpl.deleteGraph();
+        return "Create";
     }
 }

@@ -5,10 +5,19 @@ import com.nip.cdranalysis.model.Source;
 import java.util.List;
 
 public interface SourceService {
-	Iterable<Source> findAll();
+	List<Source> getSourceByName(String name);
+	List<Source> getTargetByName(String val);
+	List<Source> getAllDatas();
 
-	Source getSourceByName(String name);
+	String savaDataMoc();
+	String savaDataMTC();
+	int graphCreate();
+	double degreeCreate();
+	double betweennessCreate();
 
-	List<Source> getAllSources();
+	void deleteDetach();
+	void deleteGraph();
+
+
 
 }
